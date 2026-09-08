@@ -1,0 +1,57 @@
+class Solution {
+public:
+    bool isOneEditDistance(string s, string t) {
+
+        int n = s.length();
+        int m = t.length();
+
+        
+        if (abs(n - m) > 1) {
+            return false;
+        }
+
+        int i = 0;
+        int j = 0;
+        int edits = 0;
+
+        while (i < n && j < m) {
+
+            if (s[i] != t[j]) {
+
+                edits++;
+
+                if (edits > 1) {
+                    return false;
+                }
+
+                
+                if (n == m) {
+                    i++;
+                    j++;
+                }
+
+            
+                else if (n < m) {
+                    j++;
+                }
+
+                // s is longer: delete character from s
+                else {
+                    i++;
+                }
+
+            }
+            else {
+                i++;
+                j++;
+            }
+        }
+
+        // If one string has one extra character
+        if (i < n || j < m) {
+            edits++;
+        }
+
+        return edits == 1;
+    }
+};
